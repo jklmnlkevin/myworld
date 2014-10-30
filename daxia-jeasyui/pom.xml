@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.daxia</groupId>
-	<artifactId>jeasyui-maven</artifactId>
+	<artifactId>daxia-jeasyui</artifactId>
 	<packaging>war</packaging>
 	<version>0.1</version>
-	<name>jeasyui-maven</name>
+	<name>daxia-jeasyui</name>
 	<profiles>
 		<profile>
 			<id>default</id>
@@ -80,7 +80,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>jeasyui-maven</finalName>
+		<finalName>daxia-jeasyui</finalName>
 	</build>
 
 	<dependencies>
