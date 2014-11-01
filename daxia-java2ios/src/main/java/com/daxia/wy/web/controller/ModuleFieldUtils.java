@@ -24,6 +24,7 @@ public class ModuleFieldUtils {
     private static List<ModuleField> doParse(File apiDTOFile) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(apiDTOFile)));
         String line = null;
+        List<ModuleField> list = new ArrayList<ModuleField>();
         while ((line = reader.readLine()) != null) {
             if (StringUtils.isBlank(line)) {
                 continue;
@@ -56,9 +57,10 @@ public class ModuleFieldUtils {
             } else {
                 mf.setObject(true);
             }
-            //System.out.println(mf);
+            // System.out.println(mf);
+            list.add(mf);
         }
-        return null;
+        return list;
     }
     
     

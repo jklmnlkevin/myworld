@@ -86,7 +86,7 @@ public class DevController extends BaseController {
 	
 	@RequestMapping(value = "java2ios")
 	public String java2ios() {
-	    String path = "/Users/kevin/git/myworld/daxia-java2ios/src/main/java";
+	    String path = "/Users/kevin/code/yc_java/trunk/src/main/java";
 	    String apiDTOPath = path + "/com/daxia/wy/dto/api";
 	    
 	    File[] dtos = new File(apiDTOPath).listFiles();
