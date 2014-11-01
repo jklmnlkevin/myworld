@@ -6,11 +6,22 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class ModuleFieldUtils {
+    
+    private static Map<String, String> typeMap = new HashMap<String, String>();
+    static {
+        typeMap.put("String", "NSString");
+        typeMap.put("Long", "NSNumber");
+        typeMap.put("Integer", "NSNumber");
+        typeMap.put("Double", "NSNumber");
+        typeMap.put("Float", "NSNumber");
+    }
     
     public static List<ModuleField> parseFields(File apiDTOFile) {
         try {
@@ -57,7 +68,10 @@ public class ModuleFieldUtils {
             } else {
                 mf.setObject(true);
             }
-            // System.out.println(mf);
+            String mappedType = typeMap.get(mf.getType());
+            if (mappedType != null) {
+                mf.setType(mappedType);
+            }
             list.add(mf);
         }
         return list;

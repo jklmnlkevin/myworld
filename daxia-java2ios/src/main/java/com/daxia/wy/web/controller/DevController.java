@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.daxia.core.util.dev.FreeMarkerUtils;
 import com.daxia.core.web.controller.BaseController;
 import com.daxia.wy.dto.ApiModuleDTO;
 import com.daxia.wy.model.ApiTest;
@@ -85,7 +86,7 @@ public class DevController extends BaseController {
 	}
 	
 	@RequestMapping(value = "java2ios")
-	public String java2ios() {
+	public String java2ios() throws Exception {
 	    String path = "/Users/kevin/code/yc_java/trunk/src/main/java";
 	    String apiDTOPath = path + "/com/daxia/wy/dto/api";
 	    
@@ -102,11 +103,21 @@ public class DevController extends BaseController {
             moduleFieldMap.put(moduleName, moduleFields);
             System.out.println("models.add(\"" + moduleName + "\");");
         }
+	    
+	    String templatePath = "src/main/resources/ios/";
+	    File template = new File(templatePath + "Model.h.ftl");
+	    File target = new File("/tmp/Product.h");
+	    
+	    Map<String, Object> paramMap = new HashMap<String, Object>();
+	    paramMap.put("Model", "Product");
+	    paramMap.put("fields", moduleFieldMap.get("Product"));
+	    
+	    FreeMarkerUtils.generate(template, target, paramMap);
 	             
 	    return null;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
         new DevController().java2ios();
     }
 	
