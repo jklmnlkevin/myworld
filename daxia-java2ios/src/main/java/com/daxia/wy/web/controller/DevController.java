@@ -1,12 +1,8 @@
 package com.daxia.wy.web.controller;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.daxia.core.util.dev.FreeMarkerUtils;
 import com.daxia.core.web.controller.BaseController;
 import com.daxia.wy.dto.ApiModuleDTO;
 import com.daxia.wy.model.ApiTest;
@@ -26,22 +22,6 @@ import com.daxia.wy.service.ApiModuleService;
 @Controller
 @RequestMapping(value = "/dev", produces="text/html;charset=UTF-8")
 public class DevController extends BaseController {
-    private static Map<String, List<ModuleField>> moduleFieldMap = new HashMap<String, List<ModuleField>>();
-    private static Set<String> invalidModules = new HashSet<String>();
-    static {
-        invalidModules.add("Base");
-        invalidModules.add("BaseAPIOutput");
-        invalidModules.add("City");
-        invalidModules.add("District");
-        
-        invalidModules.add("MobileApiOutput");
-        invalidModules.add("info");
-        invalidModules.add("Order2");
-        invalidModules.add("Province");
-        invalidModules.add("SystemConfig");
-        invalidModules.add("UserSimple");
-        invalidModules.add("UserSimple2");
-    }
     
     @Autowired
     private ApiModuleService apiModuleService;
@@ -85,36 +65,11 @@ public class DevController extends BaseController {
 	    return "dev/dev_api";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "java2ios")
 	public String java2ios() throws Exception {
-	    String path = "/Users/kevin/code/yc_java/trunk/src/main/java";
-	    String apiDTOPath = path + "/com/daxia/wy/dto/api";
-	    
-	    File[] dtos = new File(apiDTOPath).listFiles();
-	    for (File dto : dtos) {
-            String moduleName = dto.getName();
-            moduleName = moduleName.replace(".java", "");
-            moduleName = moduleName.replace("APIDTO", "");
-            if (invalidModules.contains(moduleName)) {
-                continue;
-            }
-            
-            List<ModuleField> moduleFields = ModuleFieldUtils.parseFields(dto);
-            moduleFieldMap.put(moduleName, moduleFields);
-            System.out.println("models.add(\"" + moduleName + "\");");
-        }
-	    
-	    String templatePath = "src/main/resources/ios/";
-	    File template = new File(templatePath + "Model.h.ftl");
-	    File target = new File("/tmp/Product.h");
-	    
-	    Map<String, Object> paramMap = new HashMap<String, Object>();
-	    paramMap.put("Model", "Product");
-	    paramMap.put("fields", moduleFieldMap.get("Product"));
-	    
-	    FreeMarkerUtils.generate(template, target, paramMap);
-	             
-	    return null;
+	    Java2iosUtils.java2ios();
+	    return "Done";
 	}
 	
 	public static void main(String[] args) throws Exception {

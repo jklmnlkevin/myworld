@@ -19,8 +19,12 @@ public class ModuleFieldUtils {
         typeMap.put("String", "NSString");
         typeMap.put("Long", "NSNumber");
         typeMap.put("Integer", "NSNumber");
+        typeMap.put("int", "NSNumber");
         typeMap.put("Double", "NSNumber");
         typeMap.put("Float", "NSNumber");
+        typeMap.put("Date", "NSString");
+        typeMap.put("boolean", "BOOL");
+        typeMap.put("Boolean", "BOOL");
     }
     
     public static List<ModuleField> parseFields(File apiDTOFile) {
