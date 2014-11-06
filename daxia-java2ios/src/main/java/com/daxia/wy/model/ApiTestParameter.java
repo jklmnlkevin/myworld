@@ -1,5 +1,7 @@
 package com.daxia.wy.model;
 
+import java.sql.DriverManager;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.daxia.core.model.BaseModel;
 
@@ -38,7 +43,7 @@ public class ApiTestParameter extends BaseModel {
 	 * 参数描述
 	 */
 	@Column(name = "description")
-    private String description;
+    private String description = "无";
 	/**
 	 * 是否必须
 	 */
@@ -93,7 +98,7 @@ public class ApiTestParameter extends BaseModel {
 	 * 获取值：参数描述
 	 */
 	public String getDescription() {
-    	return description;
+    	return StringUtils.isBlank(description) ? "无" : description;
     }
 	
 	/** 
@@ -124,5 +129,6 @@ public class ApiTestParameter extends BaseModel {
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
+
     
 }

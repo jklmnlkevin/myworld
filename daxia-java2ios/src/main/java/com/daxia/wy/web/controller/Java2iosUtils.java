@@ -12,7 +12,6 @@ import com.daxia.core.util.dev.FreeMarkerUtils;
 
 public class Java2iosUtils {
     private static String targetPath = "/Users/kevin/code/yc/trunk/ios/DaXiaProject/Classes/model";
-    private static Map<String, List<ModuleField>> moduleFieldMap = new HashMap<String, List<ModuleField>>();
     private static Set<String> invalidModules = new HashSet<String>();
     static {
         invalidModules.add("Base");

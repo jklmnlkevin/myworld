@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -61,8 +62,20 @@ public class ApiTest extends BaseModel {
     @JoinColumn(name = "apimodule_id")
     private ApiModule apiModule;
 	
-    @OneToMany(mappedBy="apiTest",cascade={CascadeType.ALL},fetch=FetchType.EAGER)  
+    @OneToMany(mappedBy="apiTest",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
     private List<ApiTestParameter> apiTestParameters;
+    
+    @Transient
+    private String module;
+    @Transient
+    private String method;
+    
+    /**
+     * 跟数据库无关，是为了生成代码的。
+     */
+    @Transient
+    private String args;
+    
 	/** 
 	 * 获取值：id
 	 */
@@ -174,6 +187,30 @@ public class ApiTest extends BaseModel {
 
     public void setRequestMethod(String requestMethod) {
         this.requestMethod = requestMethod;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
     }
     
 }

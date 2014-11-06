@@ -22,7 +22,7 @@
 </#if>
 <#if !f.array>
 	<#if f.type == 'BOOL'>
-@property (nonatomic, strong) ${f.type} ${f.name};
+@property (nonatomic) ${f.type} ${f.name};
 	</#if>
 	<#if f.type != 'BOOL'>	
 @property (nonatomic, strong) ${f.type} *${f.name};

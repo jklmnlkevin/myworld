@@ -1,13 +1,11 @@
 package com.daxia.wy.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daxia.core.web.controller.BaseController;
 import com.daxia.wy.dto.ApiModuleDTO;
-import com.daxia.wy.model.ApiTest;
-import com.daxia.wy.model.ApiTestParameter;
 import com.daxia.wy.service.ApiModuleService;
 
 @Controller
@@ -29,33 +25,7 @@ public class DevController extends BaseController {
     @RequestMapping(value = "api2service")
     public String api2service(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) throws Exception {
         List<ApiModuleDTO> apiModuleDTOs = apiModuleService.find(new ApiModuleDTO(), null);
-        List<ApiTest> apiTests = new ArrayList<ApiTest>();
-        for (ApiModuleDTO apiModuleDTO : apiModuleDTOs) {
-            apiTests.addAll(apiModuleDTO.getApiTests());
-        }
-        
-        for (ApiTest apiTest : apiTests) {
-            String url = apiTest.getUrl();
-            if (StringUtils.isBlank(url)) {
-                continue;
-            }
-            if (!url.startsWith("m/")) {
-                continue;
-            }
-            String[] arr = url.split("/");
-            if (arr.length < 3) {
-                continue;
-            }
-            String module = arr[1];
-            String method = arr[2];
-            System.out.println(module + "." + method);
-            
-            List<ApiTestParameter> parameters = apiTest.getApiTestParameters();
-            for (ApiTestParameter parameter : parameters) {
-                System.out.println(parameter.getName() + ": " + parameter.getDescription());
-            }
-        }
-        
+        Api2ServiceUtils.api2service(apiModuleDTOs);
         return "";
     }
     

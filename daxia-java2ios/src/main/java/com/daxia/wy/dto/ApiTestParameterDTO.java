@@ -19,5 +19,5 @@ import com.daxia.wy.model.ApiTestParameter;
  *
  */
 public class ApiTestParameterDTO extends ApiTestParameter {
-	
+    
 }
