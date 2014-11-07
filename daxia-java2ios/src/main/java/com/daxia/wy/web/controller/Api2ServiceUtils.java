@@ -75,6 +75,7 @@ public class Api2ServiceUtils {
             System.out.println("begin: " + module);
             Map<String, Object> paramMap = new HashMap<String, Object>();
             paramMap.put("Model", module);
+            paramMap.put("model", module.substring(0, 1).toLowerCase() + module.substring(1));
             paramMap.put("apiTests", moduleMap.get(module));
             
             for (File template : templateList) {
@@ -90,7 +91,7 @@ public class Api2ServiceUtils {
         List<ApiTestParameter> parameters = apiTest.getApiTestParameters();
         String args = "";
         if (CollectionUtils.isEmpty(apiTest.getApiTestParameters())) {
-            return "";
+            return ":withDone:(done)done";
         }
         
         args = ":";
@@ -116,11 +117,15 @@ public class Api2ServiceUtils {
             index ++;
         }
         if (isListMethod) {
-            args += " pageNum:(NSNumber *)pageNum numPerPage:(NSNumber *)numPerPage";
+            args += " pageNum:(NSNumber *)pageNum numPerPage:(NSNumber *)numPerPage ";
         }
+        
+        args += "withDone:(done)done";
+        
         if (args.endsWith(" ")) {
             args = args.substring(0, args.length() - 1);
         }
+        
         return args;
     }
 }
