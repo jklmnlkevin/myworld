@@ -90,12 +90,16 @@ public class Api2ServiceUtils {
     private static String processArgs(ApiTest apiTest) {
         List<ApiTestParameter> parameters = apiTest.getApiTestParameters();
         String args = "";
+        boolean isListMethod = apiTest.getMethod().equals("list");
         if (CollectionUtils.isEmpty(apiTest.getApiTestParameters())) {
-            return ":withDone:(done)done";
+            if (isListMethod) {
+                return ":(NSNumber *)pageNum numPerPage:(NSNumber *)numPerPage withDone:(done)done ";
+            } else {
+                return ":(done)done";
+            }
         }
         
         args = ":";
-        boolean isListMethod = apiTest.getMethod().equals("list");
         int index = 0;
         for (ApiTestParameter p : parameters) {
             String type = "";

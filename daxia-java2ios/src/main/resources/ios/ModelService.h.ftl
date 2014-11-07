@@ -3,10 +3,11 @@
 #import "${Model}.h"
 #import "YcAPI.h"
 #import "MJExtension.h"
+#import "BaseService.h"
 
-typedef void (^done)(NSArray *array);
+typedef void (^done)(NSMutableArray *array);
 
-@interface ${Model}Service : NSObject
+@interface ${Model}Service : BaseService
 
 <#list apiTests as api>
 /*

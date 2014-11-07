@@ -27,7 +27,7 @@
     }
 	</#if>
         
-    [[YcAPI sharedInstance] callAPI2:@"${api.url}" parameters:parameters withCompletion:^(BOOL completed, NSDictionary *data) {
+    [[YcAPI sharedInstance] callAPI:@"${api.url}" parameters:parameters withCompletion:^(BOOL completed, NSDictionary *data) {
     	<#if api.method == 'list'>    
         NSArray *infos = data[@"${model}Infos"];
         NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -37,7 +37,8 @@
         }
         done(array);
         </#if>
-        <#if api.method != 'list'>    
+        <#if api.method != 'list'>
+        // 这种不是list方法，返回的值不是很有规律，需要单独解析，或者有些方法不需要解析返回值    
         </#if>                      
     }];
 	
